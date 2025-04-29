@@ -13,6 +13,7 @@ public class board {
     protected int[][] hidGrid = new int[x][y];
 
 
+    //set up the field
     public void setupField(int diff)
     {
         int var=0;
@@ -28,6 +29,7 @@ public class board {
         buildHidden();
     }
 
+    //the hiddend field with mine and open space
     public void buildHidden(){
         for(int i=0; i<x; i++)
         {
@@ -75,6 +77,8 @@ public class board {
         }
     }
 
+    //what the plater will see 
+
     public void displayVisible()
     {
         System.out.print("\t ");
@@ -106,6 +110,7 @@ public class board {
         }
     }
 
+    //what the player will see
     public void fixVisible(int i, int j)
     {
         grid[i][j] = 128;
