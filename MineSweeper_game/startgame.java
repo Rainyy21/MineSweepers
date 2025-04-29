@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 public class startgame extends board {
     public void startgame(){
+        //print out the header of the game
         System.out.println("\n\n================Welcome to Minesweeper ! ================\n");
         setupField(1);
 
+        //if win
         boolean flag = true;
         while(flag){
             displayVisible();
@@ -19,6 +21,8 @@ public class startgame extends board {
             }
         }
     }
+
+    //player option on where to check
     public boolean playMove()
     {
         Scanner sc= new Scanner(System.in);
@@ -33,6 +37,7 @@ public class startgame extends board {
             return true;
         }
 
+        //if the mine been hit
         if(hidGrid[i][j]==256)
         {
             displayHidden();
@@ -51,6 +56,7 @@ public class startgame extends board {
         return true;
     }
     
+    //check if their no open space
     public boolean checkWin()
     {
         for(int i=0; i<16; i++)
