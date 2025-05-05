@@ -1,21 +1,43 @@
 package MineSweeper;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.random.*;
 
 public class board {
     //for diffcuilty
-    private int x = 16, y = 16;
-    private int field = x*y;
-    private int mines = 40;
-
+    private HashMap<Integer,int[]> leveldiff = new HashMap<>();
+    protected int x, y, mines;
+    private int field;
+    protected int lose;
+    
     //grid size
     protected int[][] grid = new int[x][y];
     protected int[][] hidGrid = new int[x][y];
 
+    protected void loadDiff(){
+        int[] diff1 = {9, 9, 10};
+        int[] diff2 = {16, 16, 60};
+        int[] diff3 = {24, 24, 99};
+        leveldiff.put(0, diff1);
+        leveldiff.put(1, diff2);
+        leveldiff.put(2, diff3);
+    }
 
-    public void setupField(int diff)
+    protected void setupDiff(int diff){
+        int[] arr = leveldiff.get(diff);
+        this.x = arr[0];
+        this.y = arr[1];
+        this.mines = arr[2];
+        this.field = x*y;
+        this.grid = new int[x][y];
+        this.hidGrid = new int[x][y];
+        this.lose = x*y;
+    }
+
+    public void setupField()
     {
         int var=0;
+        
         while(var!=mines)
         {
             Random random = new Random();
@@ -108,7 +130,7 @@ public class board {
 
     public void fixVisible(int i, int j)
     {
-        grid[i][j] = 128;
+        grid[i][j] = field/2;
         if(i!=0)
         {
             grid[i-1][j] = hidGrid[i-1][j];

@@ -5,7 +5,18 @@ import java.util.Scanner;
 public class startgame extends board {
     public void startgame(){
         System.out.println("\n\n================Welcome to Minesweeper ! ================\n");
-        setupField(1);
+        loadDiff();
+
+        System.out.println("Enter the Difficulty Level");
+        System.out.println("Press 0 for BEGINNER (9 * 9 Cells and 10 Mines)");
+        System.out.println("Press 1 for INTERMEDIATE (16 * 16 Cells and 40 Mines)");
+        System.out.println("Press 2 for ADVANCED (24 * 24 Cells and 99 Mines)\n");
+
+        
+        Scanner sc= new Scanner(System.in);
+        int diff = sc.nextInt();
+        setupDiff(diff);
+        setupField();
 
         boolean flag = true;
         while(flag){
@@ -27,13 +38,13 @@ public class startgame extends board {
         System.out.print("Enter Column Number: ");
         int j= sc.nextInt();
 
-        if(i<0 || i>16 || j<0 || j>16 || grid[i][j]!=0)
+        if(i<0 || i>=super.x || j<0 || j>=super.y || grid[i][j]!=0)
         {
             System.out.print("\nIncorrect Input!!\n");
             return true;
         }
 
-        if(hidGrid[i][j]==256)
+        if(hidGrid[i][j]==super.lose)
         {
             displayHidden();
             System.out.print("Oops! You stepped on a mine!\n============GAME OVER============");
@@ -53,13 +64,13 @@ public class startgame extends board {
     
     public boolean checkWin()
     {
-        for(int i=0; i<16; i++)
+        for(int i=0; i<=super.x; i++)
         {
-            for(int j=0; j<16; j++)
+            for(int j=0; j<=super.y; j++)
             {
                 if(grid[i][j]==0)
                 {
-                    if(hidGrid[i][j]!=256)
+                    if(hidGrid[i][j]!=super.lose)
                     {
                         return false;
                     }
